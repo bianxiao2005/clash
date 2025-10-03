@@ -1,0 +1,243 @@
+[General]
+# 基本设置，从 Clash 映射
+ipv6 = true
+bypass-system = true
+skip-proxy = 192.168.0.0/16, 10.0.0.0/8, 172.16.0.0/12, localhost, *.local
+tun-excluded-route = 192.168.0.0/16, 10.0.0.0/8, 172.16.0.0/12
+dns-server = 223.5.5.5, system
+enhanced-mode = fake-ip
+fake-ip-range = 198.20.0.1/16
+fake-ip-filter = +.lan, +.local, geosite:cn, +.km688.ink, +.onesubv.site, +.oneyyds.online, +.fengyyds.site, +.onemg.top, +.chybinc.com, +.invitevp.com, +.vp2.us, +.xiaoniuyun.cc, +.apple-bing.sbs, +.bncrcloud.com, +.xby01.xyz, +.idsduf.com, +.66jc.top, +.gfw.gg, +.moedog.cloud, +.ynhtbank.com, +.qeayr.cn, +.saojc.xyz, +.sssyun.xyz, +.dler.cloud, +.0tk8a3a1q4t94dler.com, +.aerianas.top, +.gptacg.top, +.wxda.net
+loglevel = info
+# 端口设置，从 Clash 映射（Surge 使用不同端口，但类似）
+http-port = 7890
+socks5-port = 7891
+mixed-port = 7893
+tproxy-port = 7895
+allow-lan = true
+# TUN 设置，从 Clash 映射
+tun = true, gvisor, utun, false, false, false, false
+# 外部控制
+external-controller = 0.0.0.0:9090
+secret-key = 123456
+# UI
+external-ui = ui
+# 注意：Surge 不直接支持 external-ui-url，需要手动下载解压到目录
+
+[Proxy]
+# 手动代理，从 Clash proxies 映射
+DIRECT = direct
+REJECT = reject
+
+# 订阅代理，从 proxy-providers 映射（Surge 使用 URL 类型代理）
+小牛 = url, type = http, url = "https://180.184.148.71:60440/api/v1/client/subscribe?token=1aed771a038cbc5a3dcbf6e0d858cdcc&connection=china", interval = 86400, health-check-url = "https://www.gstatic.com/generate_204", health-check-interval = 300, use = DIRECT
+红杏云 = url, type = http, url = "https://43.139.213.75:9000/hxyunvip?token=3aea06406b4b7ffbffc9be55d756879a", interval = 86400, health-check-url = "https://www.gstatic.com/generate_204", health-check-interval = 300, use = DIRECT
+奶油 = url, type = http, url = "https://sub.nysubs.xyz/Config/SurgeConfig?u=525f8d70-485c-4f3d-851e-36d24c279747&t=ssaead", interval = 86400, health-check-url = "https://www.gstatic.com/generate_204", health-check-interval = 300, use = DIRECT
+YKK = url, type = http, url = "https://config.moe/config/f8c141ce76509393f2ad9c785a6588b4", interval = 86400, health-check-url = "https://www.gstatic.com/generate_204", health-check-interval = 300, use = DIRECT
+
+# 注意：实际节点会从订阅拉取，Surge 会自动解析为子代理；这里用父代理表示订阅
+
+[Proxy Group]
+# 默认组，从 Clash default 映射（select 类型）
+默认 = select, DIRECT, 所有-手动, 所有-自动, 香港-故转, 香港-手动, 香港-自动, 台湾-故转, 台湾-手动, 台湾-自动, 日本-故转, 日本-手动, 日本-自动, 新加坡-故转, 新加坡-手动, 新加坡-自动, 韩国-故转, 韩国-手动, 韩国-自动, 美国-故转, 美国-手动, 美国-自动, 英国-故转, 其他-故转, 其他-手动, 其他-自动, TikTok-故转, TikTok-手动, TikTok-自动, Disney-故转, Disney-手动, Disney-自动, Netflix-故转, Netflix-手动, Netflix-自动, ChatGPT-故转, ChatGPT-手动, ChatGPT-自动, Gemini-故转, Gemini-手动, Gemini-自动, REJECT
+
+# 业务分流组，从 Clash proxy-groups 映射（继承 default）
+ChatGPT = select, DIRECT, 所有-手动, 所有-自动, 香港-故转, 香港-手动, 香港-自动, 台湾-故转, 台湾-手动, 台湾-自动, 日本-故转, 日本-手动, 日本-自动, 新加坡-故转, 新加坡-手动, 新加坡-自动, 韩国-故转, 韩国-手动, 韩国-自动, 美国-故转, 美国-手动, 美国-自动, 英国-故转, 其他-故转, 其他-手动, 其他-自动, TikTok-故转, TikTok-手动, TikTok-自动, Disney-故转, Disney-手动, Disney-自动, Netflix-故转, Netflix-手动, Netflix-自动, ChatGPT-故转, ChatGPT-手动, ChatGPT-自动, Gemini-故转, Gemini-手动, Gemini-自动, REJECT
+Gemini = select, DIRECT, 所有-手动, 所有-自动, 香港-故转, 香港-手动, 香港-自动, 台湾-故转, 台湾-手动, 台湾-自动, 日本-故转, 日本-手动, 日本-自动, 新加坡-故转, 新加坡-手动, 新加坡-自动, 韩国-故转, 韩国-手动, 韩国-自动, 美国-故转, 美国-手动, 美国-自动, 英国-故转, 其他-故转, 其他-手动, 其他-自动, TikTok-故转, TikTok-手动, TikTok-自动, Disney-故转, Disney-手动, Disney-自动, Netflix-故转, Netflix-手动, Netflix-自动, ChatGPT-故转, ChatGPT-手动, ChatGPT-自动, Gemini-故转, Gemini-手动, Gemini-自动, REJECT
+Claude = select, DIRECT, 所有-手动, 所有-自动, 香港-故转, 香港-手动, 香港-自动, 台湾-故转, 台湾-手动, 台湾-自动, 日本-故转, 日本-手动, 日本-自动, 新加坡-故转, 新加坡-手动, 新加坡-自动, 韩国-故转, 韩国-手动, 韩国-自动, 美国-故转, 美国-手动, 美国-自动, 英国-故转, 其他-故转, 其他-手动, 其他-自动, TikTok-故转, TikTok-手动, TikTok-自动, Disney-故转, Disney-手动, Disney-自动, Netflix-故转, Netflix-手动, Netflix-自动, ChatGPT-故转, ChatGPT-手动, ChatGPT-自动, Gemini-故转, Gemini-手动, Gemini-自动, REJECT
+Meta AI = select, DIRECT, 所有-手动, 所有-自动, 香港-故转, 香港-手动, 香港-自动, 台湾-故转, 台湾-手动, 台湾-自动, 日本-故转, 日本-手动, 日本-自动, 新加坡-故转, 新加坡-手动, 新加坡-自动, 韩国-故转, 韩国-手动, 韩国-自动, 美国-故转, 美国-手动, 美国-自动, 英国-故转, 其他-故转, 其他-手动, 其他-自动, TikTok-故转, TikTok-手动, TikTok-自动, Disney-故转, Disney-手动, Disney-自动, Netflix-故转, Netflix-手动, Netflix-自动, ChatGPT-故转, ChatGPT-手动, ChatGPT-自动, Gemini-故转, Gemini-手动, Gemini-自动, REJECT
+Perplexity = select, DIRECT, 所有-手动, 所有-自动, 香港-故转, 香港-手动, 香港-自动, 台湾-故转, 台湾-手动, 台湾-自动, 日本-故转, 日本-手动, 日本-自动, 新加坡-故转, 新加坡-手动, 新加坡-自动, 韩国-故转, 韩国-手动, 韩国-自动, 美国-故转, 美国-手动, 美国-自动, 英国-故转, 其他-故转, 其他-手动, 其他-自动, TikTok-故转, TikTok-手动, TikTok-自动, Disney-故转, Disney-手动, Disney-自动, Netflix-故转, Netflix-手动, Netflix-自动, ChatGPT-故转, ChatGPT-手动, ChatGPT-自动, Gemini-故转, Gemini-手动, Gemini-自动, REJECT
+GitHub = select, DIRECT, 所有-手动, 所有-自动, 香港-故转, 香港-手动, 香港-自动, 台湾-故转, 台湾-手动, 台湾-自动, 日本-故转, 日本-手动, 日本-自动, 新加坡-故转, 新加坡-手动, 新加坡-自动, 韩国-故转, 韩国-手动, 韩国-自动, 美国-故转, 美国-手动, 美国-自动, 英国-故转, 其他-故转, 其他-手动, 其他-自动, TikTok-故转, TikTok-手动, TikTok-自动, Disney-故转, Disney-手动, Disney-自动, Netflix-故转, Netflix-手动, Netflix-自动, ChatGPT-故转, ChatGPT-手动, ChatGPT-自动, Gemini-故转, Gemini-手动, Gemini-自动, REJECT
+Telegram = select, DIRECT, 所有-手动, 所有-自动, 香港-故转, 香港-手动, 香港-自动, 台湾-故转, 台湾-手动, 台湾-自动, 日本-故转, 日本-手动, 日本-自动, 新加坡-故转, 新加坡-手动, 新加坡-自动, 韩国-故转, 韩国-手动, 韩国-自动, 美国-故转, 美国-手动, 美国-自动, 英国-故转, 其他-故转, 其他-手动, 其他-自动, TikTok-故转, TikTok-手动, TikTok-自动, Disney-故转, Disney-手动, Disney-自动, Netflix-故转, Netflix-手动, Netflix-自动, ChatGPT-故转, ChatGPT-手动, ChatGPT-自动, Gemini-故转, Gemini-手动, Gemini-自动, REJECT
+Twitter(X) = select, DIRECT, 所有-手动, 所有-自动, 香港-故转, 香港-手动, 香港-自动, 台湾-故转, 台湾-手动, 台湾-自动, 日本-故转, 日本-手动, 日本-自动, 新加坡-故转, 新加坡-手动, 新加坡-自动, 韩国-故转, 韩国-手动, 韩国-自动, 美国-故转, 美国-手动, 美国-自动, 英国-故转, 其他-故转, 其他-手动, 其他-自动, TikTok-故转, TikTok-手动, TikTok-自动, Disney-故转, Disney-手动, Disney-自动, Netflix-故转, Netflix-手动, Netflix-自动, ChatGPT-故转, ChatGPT-手动, ChatGPT-自动, Gemini-故转, Gemini-手动, Gemini-自动, REJECT
+WhatsApp = select, DIRECT, 所有-手动, 所有-自动, 香港-故转, 香港-手动, 香港-自动, 台湾-故转, 台湾-手动, 台湾-自动, 日本-故转, 日本-手动, 日本-自动, 新加坡-故转, 新加坡-手动, 新加坡-自动, 韩国-故转, 韩国-手动, 韩国-自动, 美国-故转, 美国-手动, 美国-自动, 英国-故转, 其他-故转, 其他-手动, 其他-自动, TikTok-故转, TikTok-手动, TikTok-自动, Disney-故转, Disney-手动, Disney-自动, Netflix-故转, Netflix-手动, Netflix-自动, ChatGPT-故转, ChatGPT-手动, ChatGPT-自动, Gemini-故转, Gemini-手动, Gemini-自动, REJECT
+Facebook = select, DIRECT, 所有-手动, 所有-自动, 香港-故转, 香港-手动, 香港-自动, 台湾-故转, 台湾-手动, 台湾-自动, 日本-故转, 日本-手动, 日本-自动, 新加坡-故转, 新加坡-手动, 新加坡-自动, 韩国-故转, 韩国-手动, 韩国-自动, 美国-故转, 美国-手动, 美国-自动, 英国-故转, 其他-故转, 其他-手动, 其他-自动, TikTok-故转, TikTok-手动, TikTok-自动, Disney-故转, Disney-手动, Disney-自动, Netflix-故转, Netflix-手动, Netflix-自动, ChatGPT-故转, ChatGPT-手动, ChatGPT-自动, Gemini-故转, Gemini-手动, Gemini-自动, REJECT
+Steam = select, DIRECT, 所有-手动, 所有-自动, 香港-故转, 香港-手动, 香港-自动, 台湾-故转, 台湾-手动, 台湾-自动, 日本-故转, 日本-手动, 日本-自动, 新加坡-故转, 新加坡-手动, 新加坡-自动, 韩国-故转, 韩国-手动, 韩国-自动, 美国-故转, 美国-手动, 美国-自动, 英国-故转, 其他-故转, 其他-手动, 其他-自动, TikTok-故转, TikTok-手动, TikTok-自动, Disney-故转, Disney-手动, Disney-自动, Netflix-故转, Netflix-手动, Netflix-自动, ChatGPT-故转, ChatGPT-手动, ChatGPT-自动, Gemini-故转, Gemini-手动, Gemini-自动, REJECT
+Game = select, DIRECT, 所有-手动, 所有-自动, 香港-故转, 香港-手动, 香港-自动, 台湾-故转, 台湾-手动, 台湾-自动, 日本-故转, 日本-手动, 日本-自动, 新加坡-故转, 新加坡-手动, 新加坡-自动, 韩国-故转, 韩国-手动, 韩国-自动, 美国-故转, 美国-手动, 美国-自动, 英国-故转, 其他-故转, 其他-手动, 其他-自动, TikTok-故转, TikTok-手动, TikTok-自动, Disney-故转, Disney-手动, Disney-自动, Netflix-故转, Netflix-手动, Netflix-自动, ChatGPT-故转, ChatGPT-手动, ChatGPT-自动, Gemini-故转, Gemini-手动, Gemini-自动, REJECT
+YouTube = select, DIRECT, 所有-手动, 所有-自动, 香港-故转, 香港-手动, 香港-自动, 台湾-故转, 台湾-手动, 台湾-自动, 日本-故转, 日本-手动, 日本-自动, 新加坡-故转, 新加坡-手动, 新加坡-自动, 韩国-故转, 韩国-手动, 韩国-自动, 美国-故转, 美国-手动, 美国-自动, 英国-故转, 其他-故转, 其他-手动, 其他-自动, TikTok-故转, TikTok-手动, TikTok-自动, Disney-故转, Disney-手动, Disney-自动, Netflix-故转, Netflix-手动, Netflix-自动, ChatGPT-故转, ChatGPT-手动, ChatGPT-自动, Gemini-故转, Gemini-手动, Gemini-自动, REJECT
+TikTok = select, DIRECT, 所有-手动, 所有-自动, 香港-故转, 香港-手动, 香港-自动, 台湾-故转, 台湾-手动, 台湾-自动, 日本-故转, 日本-手动, 日本-自动, 新加坡-故转, 新加坡-手动, 新加坡-自动, 韩国-故转, 韩国-手动, 韩国-自动, 美国-故转, 美国-手动, 美国-自动, 英国-故转, 其他-故转, 其他-手动, 其他-自动, TikTok-故转, TikTok-手动, TikTok-自动, Disney-故转, Disney-手动, Disney-自动, Netflix-故转, Netflix-手动, Netflix-自动, ChatGPT-故转, ChatGPT-手动, ChatGPT-自动, Gemini-故转, Gemini-手动, Gemini-自动, REJECT
+Disney = select, DIRECT, 所有-手动, 所有-自动, 香港-故转, 香港-手动, 香港-自动, 台湾-故转, 台湾-手动, 台湾-自动, 日本-故转, 日本-手动, 日本-自动, 新加坡-故转, 新加坡-手动, 新加坡-自动, 韩国-故转, 韩国-手动, 韩国-自动, 美国-故转, 美国-手动, 美国-自动, 英国-故转, 其他-故转, 其他-手动, 其他-自动, TikTok-故转, TikTok-手动, TikTok-自动, Disney-故转, Disney-手动, Disney-自动, Netflix-故转, Netflix-手动, Netflix-自动, ChatGPT-故转, ChatGPT-手动, ChatGPT-自动, Gemini-故转, Gemini-手动, Gemini-自动, REJECT
+Netflix = select, DIRECT, 所有-手动, 所有-自动, 香港-故转, 香港-手动, 香港-自动, 台湾-故转, 台湾-手动, 台湾-自动, 日本-故转, 日本-手动, 日本-自动, 新加坡-故转, 新加坡-手动, 新加坡-自动, 韩国-故转, 韩国-手动, 韩国-自动, 美国-故转, 美国-手动, 美国-自动, 英国-故转, 其他-故转, 其他-手动, 其他-自动, TikTok-故转, TikTok-手动, TikTok-自动, Disney-故转, Disney-手动, Disney-自动, Netflix-故转, Netflix-手动, Netflix-自动, ChatGPT-故转, ChatGPT-手动, ChatGPT-自动, Gemini-故转, Gemini-手动, Gemini-自动, REJECT
+HBO = select, DIRECT, 所有-手动, 所有-自动, 香港-故转, 香港-手动, 香港-自动, 台湾-故转, 台湾-手动, 台湾-自动, 日本-故转, 日本-手动, 日本-自动, 新加坡-故转, 新加坡-手动, 新加坡-自动, 韩国-故转, 韩国-手动, 韩国-自动, 美国-故转, 美国-手动, 美国-自动, 英国-故转, 其他-故转, 其他-手动, 其他-自动, TikTok-故转, TikTok-手动, TikTok-自动, Disney-故转, Disney-手动, Disney-自动, Netflix-故转, Netflix-手动, Netflix-自动, ChatGPT-故转, ChatGPT-手动, ChatGPT-自动, Gemini-故转, Gemini-手动, Gemini-自动, REJECT
+Spotify = select, DIRECT, 所有-手动, 所有-自动, 香港-故转, 香港-手动, 香港-自动, 台湾-故转, 台湾-手动, 台湾-自动, 日本-故转, 日本-手动, 日本-自动, 新加坡-故转, 新加坡-手动, 新加坡-自动, 韩国-故转, 韩国-手动, 韩国-自动, 美国-故转, 美国-手动, 美国-自动, 英国-故转, 其他-故转, 其他-手动, 其他-自动, TikTok-故转, TikTok-手动, TikTok-自动, Disney-故转, Disney-手动, Disney-自动, Netflix-故转, Netflix-手动, Netflix-自动, ChatGPT-故转, ChatGPT-手动, ChatGPT-自动, Gemini-故转, Gemini-手动, Gemini-自动, REJECT
+Crypto = select, DIRECT, 所有-手动, 所有-自动, 香港-故转, 香港-手动, 香港-自动, 台湾-故转, 台湾-手动, 台湾-自动, 日本-故转, 日本-手动, 日本-自动, 新加坡-故转, 新加坡-手动, 新加坡-自动, 韩国-故转, 韩国-手动, 韩国-自动, 美国-故转, 美国-手动, 美国-自动, 英国-故转, 其他-故转, 其他-手动, 其他-自动, TikTok-故转, TikTok-手动, TikTok-自动, Disney-故转, Disney-手动, Disney-自动, Netflix-故转, Netflix-手动, Netflix-自动, ChatGPT-故转, ChatGPT-手动, ChatGPT-自动, Gemini-故转, Gemini-手动, Gemini-自动, REJECT
+Amazon = select, DIRECT, 所有-手动, 所有-自动, 香港-故转, 香港-手动, 香港-自动, 台湾-故转, 台湾-手动, 台湾-自动, 日本-故转, 日本-手动, 日本-自动, 新加坡-故转, 新加坡-手动, 新加坡-自动, 韩国-故转, 韩国-手动, 韩国-自动, 美国-故转, 美国-手动, 美国-自动, 英国-故转, 其他-故转, 其他-手动, 其他-自动, TikTok-故转, TikTok-手动, TikTok-自动, Disney-故转, Disney-手动, Disney-自动, Netflix-故转, Netflix-手动, Netflix-自动, ChatGPT-故转, ChatGPT-手动, ChatGPT-自动, Gemini-故转, Gemini-手动, Gemini-自动, REJECT
+Apple = select, DIRECT, 所有-手动, 所有-自动, 香港-故转, 香港-手动, 香港-自动, 台湾-故转, 台湾-手动, 台湾-自动, 日本-故转, 日本-手动, 日本-自动, 新加坡-故转, 新加坡-手动, 新加坡-自动, 韩国-故转, 韩国-手动, 韩国-自动, 美国-故转, 美国-手动, 美国-自动, 英国-故转, 其他-故转, 其他-手动, 其他-自动, TikTok-故转, TikTok-手动, TikTok-自动, Disney-故转, Disney-手动, Disney-自动, Netflix-故转, Netflix-手动, Netflix-自动, ChatGPT-故转, ChatGPT-手动, ChatGPT-自动, Gemini-故转, Gemini-手动, Gemini-自动, REJECT
+Microsoft = select, DIRECT, 所有-手动, 所有-自动, 香港-故转, 香港-手动, 香港-自动, 台湾-故转, 台湾-手动, 台湾-自动, 日本-故转, 日本-手动, 日本-自动, 新加坡-故转, 新加坡-手动, 新加坡-自动, 韩国-故转, 韩国-手动, 韩国-自动, 美国-故转, 美国-手动, 美国-自动, 英国-故转, 其他-故转, 其他-手动, 其他-自动, TikTok-故转, TikTok-手动, TikTok-自动, Disney-故转, Disney-手动, Disney-自动, Netflix-故转, Netflix-手动, Netflix-自动, ChatGPT-故转, ChatGPT-手动, ChatGPT-自动, Gemini-故转, Gemini-手动, Gemini-自动, REJECT
+Google = select, DIRECT, 所有-手动, 所有-自动, 香港-故转, 香港-手动, 香港-自动, 台湾-故转, 台湾-手动, 台湾-自动, 日本-故转, 日本-手动, 日本-自动, 新加坡-故转, 新加坡-手动, 新加坡-自动, 韩国-故转, 韩国-手动, 韩国-自动, 美国-故转, 美国-手动, 美国-自动, 英国-故转, 其他-故转, 其他-手动, 其他-自动, TikTok-故转, TikTok-手动, TikTok-自动, Disney-故转, Disney-手动, Disney-自动, Netflix-故转, Netflix-手动, Netflix-自动, ChatGPT-故转, ChatGPT-手动, ChatGPT-自动, Gemini-故转, Gemini-手动, Gemini-自动, REJECT
+Test = select, DIRECT, 所有-手动, 所有-自动, 香港-故转, 香港-手动, 香港-自动, 台湾-故转, 台湾-手动, 台湾-自动, 日本-故转, 日本-手动, 日本-自动, 新加坡-故转, 新加坡-手动, 新加坡-自动, 韩国-故转, 韩国-手动, 韩国-自动, 美国-故转, 美国-手动, 美国-自动, 英国-故转, 其他-故转, 其他-手动, 其他-自动, TikTok-故转, TikTok-手动, TikTok-自动, Disney-故转, Disney-手动, Disney-自动, Netflix-故转, Netflix-手动, Netflix-自动, ChatGPT-故转, ChatGPT-手动, ChatGPT-自动, Gemini-故转, Gemini-手动, Gemini-自动, REJECT
+Block = select, DIRECT, 所有-手动, 所有-自动, 香港-故转, 香港-手动, 香港-自动, 台湾-故转, 台湾-手动, 台湾-自动, 日本-故转, 日本-手动, 日本-自动, 新加坡-故转, 新加坡-手动, 新加坡-自动, 韩国-故转, 韩国-手动, 韩国-自动, 美国-故转, 美国-手动, 美国-自动, 英国-故转, 其他-故转, 其他-手动, 其他-自动, TikTok-故转, TikTok-手动, TikTok-自动, Disney-故转, Disney-手动, Disney-自动, Netflix-故转, Netflix-手动, Netflix-自动, ChatGPT-故转, ChatGPT-手动, ChatGPT-自动, Gemini-故转, Gemini-手动, Gemini-自动, REJECT
+国外 = select, DIRECT, 所有-手动, 所有-自动, 香港-故转, 香港-手动, 香港-自动, 台湾-故转, 台湾-手动, 台湾-自动, 日本-故转, 日本-手动, 日本-自动, 新加坡-故转, 新加坡-手动, 新加坡-自动, 韩国-故转, 韩国-手动, 韩国-自动, 美国-故转, 美国-手动, 美国-自动, 英国-故转, 其他-故转, 其他-手动, 其他-自动, TikTok-故转, TikTok-手动, TikTok-自动, Disney-故转, Disney-手动, Disney-自动, Netflix-故转, Netflix-手动, Netflix-自动, ChatGPT-故转, ChatGPT-手动, ChatGPT-自动, Gemini-故转, Gemini-手动, Gemini-自动, REJECT
+国内 = select, DIRECT, 所有-手动, 所有-自动, 香港-故转, 香港-手动, 香港-自动, 台湾-故转, 台湾-手动, 台湾-自动, 日本-故转, 日本-手动, 日本-自动, 新加坡-故转, 新加坡-手动, 新加坡-自动, 韩国-故转, 韩国-手动, 韩国-自动, 美国-故转, 美国-手动, 美国-自动, 英国-故转, 其他-故转, 其他-手动, 其他-自动, TikTok-故转, TikTok-手动, TikTok-自动, Disney-故转, Disney-手动, Disney-自动, Netflix-故转, Netflix-手动, Netflix-自动, ChatGPT-故转, ChatGPT-手动, ChatGPT-自动, Gemini-故转, Gemini-手动, Gemini-自动, REJECT
+其他 = select, DIRECT, 所有-手动, 所有-自动, 香港-故转, 香港-手动, 香港-自动, 台湾-故转, 台湾-手动, 台湾-自动, 日本-故转, 日本-手动, 日本-自动, 新加坡-故转, 新加坡-手动, 新加坡-自动, 韩国-故转, 韩国-手动, 韩国-自动, 美国-故转, 美国-手动, 美国-自动, 英国-故转, 其他-故转, 其他-手动, 其他-自动, TikTok-故转, TikTok-手动, TikTok-自动, Disney-故转, Disney-手动, Disney-自动, Netflix-故转, Netflix-手动, Netflix-自动, ChatGPT-故转, ChatGPT-手动, ChatGPT-自动, Gemini-故转, Gemini-手动, Gemini-自动, REJECT
+
+# 所有组
+所有-手动 = select, 小牛, 红杏云, 奶油, YKK, exclude-DIRECT, exclude-REJECT
+所有-自动 = url-test, 小牛, 红杏云, 奶油, YKK, exclude-DIRECT, exclude-REJECT, url = "https://www.gstatic.com/generate_204", interval = 300, tolerance = 50
+
+# 香港组
+香港-故转 = fallback, 香港-手动, 香港-自动, url = "https://www.gstatic.com/generate_204", interval = 300
+香港-手动 = select, 小牛, 红杏云, 奶油, YKK, filter = ".*(广港|香港|HK|Hong Kong|🇭🇰|HongKong).*"
+香港-自动 = url-test, 小牛, 红杏云, 奶油, YKK, filter = ".*(广港|香港|HK|Hong Kong|🇭🇰|HongKong).*", url = "https://www.gstatic.com/generate_204", interval = 300, tolerance = 50
+
+# 台湾组
+台湾-故转 = fallback, 台湾-手动, 台湾-自动, url = "https://www.gstatic.com/generate_204", interval = 300
+台湾-手动 = select, 小牛, 红杏云, 奶油, YKK, filter = ".*(广台|台湾|台灣|TW|Tai Wan|🇹🇼|🇨🇳|TaiWan|Taiwan).*"
+台湾-自动 = url-test, 小牛, 红杏云, 奶油, YKK, filter = ".*(广台|台湾|台灣|TW|Tai Wan|🇹🇼|🇨🇳|TaiWan|Taiwan).*", url = "https://www.gstatic.com/generate_204", interval = 300, tolerance = 50
+
+# 日本组
+日本-故转 = fallback, 日本-手动, 日本-自动, url = "https://www.gstatic.com/generate_204", interval = 300
+日本-手动 = select, 小牛, 红杏云, 奶油, YKK, filter = ".*(广日|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|🇯🇵|Japan).*"
+日本-自动 = url-test, 小牛, 红杏云, 奶油, YKK, filter = ".*(广日|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|🇯🇵|Japan).*", url = "https://www.gstatic.com/generate_204", interval = 300, tolerance = 50
+
+# 新加坡组
+新加坡-故转 = fallback, 新加坡-手动, 新加坡-自动, url = "https://www.gstatic.com/generate_204", interval = 300
+新加坡-手动 = select, 小牛, 红杏云, 奶油, YKK, filter = ".*(广新|新加坡|SG|坡|狮城|🇸🇬|Singapore).*"
+新加坡-自动 = url-test, 小牛, 红杏云, 奶油, YKK, filter = ".*(广新|新加坡|SG|坡|狮城|🇸🇬|Singapore).*", url = "https://www.gstatic.com/generate_204", interval = 300, tolerance = 50
+
+# 韩国组
+韩国-故转 = fallback, 韩国-手动, 韩国-自动, url = "https://www.gstatic.com/generate_204", interval = 300
+韩国-手动 = select, 小牛, 红杏云, 奶油, YKK, filter = ".*(广韩|韩国|韓國|KR|首尔|春川|🇰🇷|Korea).*"
+韩国-自动 = url-test, 小牛, 红杏云, 奶油, YKK, filter = ".*(广韩|韩国|韓國|KR|首尔|春川|🇰🇷|Korea).*", url = "https://www.gstatic.com/generate_204", interval = 300, tolerance = 50
+
+# 美国组
+美国-故转 = fallback, 美国-手动, 美国-自动, url = "https://www.gstatic.com/generate_204", interval = 300
+美国-手动 = select, 小牛, 红杏云, 奶油, YKK, filter = ".*(广美|美|US|纽约|波特兰|达拉斯|俄勒|凤凰城|费利蒙|拉斯|洛杉|圣何塞|圣克拉|西雅|芝加|🇺🇸|United States).*"
+美国-自动 = url-test, 小牛, 红杏云, 奶油, YKK, filter = ".*(广美|美|US|纽约|波特兰|达拉斯|俄勒|凤凰城|费利蒙|拉斯|洛杉|圣何塞|圣克拉|西雅|芝加|🇺🇸|United States).*", url = "https://www.gstatic.com/generate_204", interval = 300, tolerance = 50
+
+# 英国组
+英国-故转 = fallback, 英国-手动, 英国-自动, url = "https://www.gstatic.com/generate_204", interval = 300
+英国-手动 = select, 小牛, 红杏云, 奶油, YKK, filter = ".*(英国|英|伦敦|UK|United Kingdom|🇬🇧|London).*"
+英国-自动 = url-test, 小牛, 红杏云, 奶油, YKK, filter = ".*(英国|英|伦敦|UK|United Kingdom|🇬🇧|London).*", url = "https://www.gstatic.com/generate_204", interval = 300, tolerance = 50
+
+# TikTok组
+TikTok-故转 = fallback, TikTok-手动, TikTok-自动, url = "https://www.gstatic.com/generate_204", interval = 300
+TikTok-手动 = select, 小牛, 红杏云, 奶油, YKK, filter = ".*(广台|台湾|台灣|TW|Tai Wan|🇹🇼|🇨🇳|TaiWan|Taiwan|广日|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|🇯🇵|Japan|广新|新加坡|SG|坡|狮城|🇸🇬|Singapore).*"
+TikTok-自动 = url-test, 小牛, 红杏云, 奶油, YKK, filter = ".*(广台|台湾|台灣|TW|Tai Wan|🇹🇼|🇨🇳|TaiWan|Taiwan|广日|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|🇯🇵|Japan|广新|新加坡|SG|坡|狮城|🇸🇬|Singapore).*", url = "https://www.gstatic.com/generate_204", interval = 300, tolerance = 50
+
+# Disney组
+Disney-故转 = fallback, Disney-手动, Disney-自动, url = "https://www.gstatic.com/generate_204", interval = 300
+Disney-手动 = select, 小牛, 红杏云, 奶油, YKK, filter = ".*(Disney|流媒体|广港|香港|HK|Hong Kong|🇭🇰|HongKong).*"
+Disney-自动 = url-test, 小牛, 红杏云, 奶油, YKK, filter = ".*(Disney|流媒体|广港|香港|HK|Hong Kong|🇭🇰|HongKong).*", url = "https://www.gstatic.com/generate_204", interval = 300, tolerance = 50
+
+# Netflix组
+Netflix-故转 = fallback, Netflix-手动, Netflix-自动, url = "https://www.gstatic.com/generate_204", interval = 300
+Netflix-手动 = select, 小牛, 红杏云, 奶油, YKK, filter = ".*(Netflix|流媒体|广港|香港|HK|Hong Kong|🇭🇰|HongKong).*"
+Netflix-自动 = url-test, 小牛, 红杏云, 奶油, YKK, filter = ".*(Netflix|流媒体|广港|香港|HK|Hong Kong|🇭🇰|HongKong).*", url = "https://www.gstatic.com/generate_204", interval = 300, tolerance = 50
+
+# ChatGPT组
+ChatGPT-故转 = fallback, ChatGPT-手动, ChatGPT-自动, url = "https://www.gstatic.com/generate_204", interval = 300
+ChatGPT-手动 = select, 小牛, 红杏云, 奶油, YKK, filter = ".*(ChatGpt|AI).*(?!直连|0.5).*"
+ChatGPT-自动 = url-test, 小牛, 红杏云, 奶油, YKK, filter = ".*(ChatGpt|AI).*(?!直连|0.5).*", url = "https://www.gstatic.com/generate_204", interval = 300, tolerance = 50
+
+# Gemini组
+Gemini-故转 = fallback, Gemini-手动, Gemini-自动, url = "https://www.gstatic.com/generate_204", interval = 300
+Gemini-手动 = select, 小牛, 红杏云, 奶油, YKK, filter = ".*(Gemini|AI).*(?!直连|0.5).*"
+Gemini-自动 = url-test, 小牛, 红杏云, 奶油, YKK, filter = ".*(Gemini|AI).*(?!直连|0.5).*", url = "https://www.gstatic.com/generate_204", interval = 300, tolerance = 50
+
+# 其他组
+其他-故转 = fallback, 其他-手动, 其他-自动, url = "https://www.gstatic.com/generate_204", interval = 300
+其他-手动 = select, 小牛, 红杏云, 奶油, YKK, filter = "^((?!(直连|拒绝|广港|香港|HK|Hong Kong|🇭🇰|HongKong|广台|台湾|台灣|TW|Tai Wan|🇹🇼|🇨🇳|TaiWan|Taiwan|广日|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|🇯🇵|Japan|广新|新加坡|SG|坡|狮城|🇸🇬|Singapore|广韩|韩国|韓國|KR|首尔|春川|🇰🇷|Korea|广美|美|US|纽约|波特兰|达拉斯|俄勒|凤凰城|费利蒙|拉斯|洛杉|圣何塞|圣克拉|西雅|芝加|🇺🇸|United States|英国|UK|United Kingdom|伦敦|英|London|🇬🇧)).)*$"
+其他-自动 = url-test, 小牛, 红杏云, 奶油, YKK, filter = "^((?!(直连|拒绝|广港|香港|HK|Hong Kong|🇭🇰|HongKong|广台|台湾|台灣|TW|Tai Wan|🇹🇼|🇨🇳|TaiWan|Taiwan|广日|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|🇯🇵|Japan|广新|新加坡|SG|坡|狮城|🇸🇬|Singapore|广韩|韩国|韓國|KR|首尔|春川|🇰🇷|Korea|广美|美|US|纽约|波特兰|达拉斯|俄勒|凤凰城|费利蒙|拉斯|洛杉|圣何塞|圣克拉|西雅|芝加|🇺🇸|United States|英国|UK|United Kingdom|伦敦|英|London|🇬🇧)).)*$", url = "https://www.gstatic.com/generate_204", interval = 300, tolerance = 50
+
+# 注意：Surge 中的 filter 是 regex 匹配节点名；exclude-DIRECT/REJECT 用于排除直连/拒绝；订阅节点会自动包含在 select/url-test 中
+
+[Rule]
+# 规则，从 Clash rules 映射（RULE-SET 到 Surge RULE-SET，MATCH 到 FINAL）
+RULE-SET,TEST / Domain,Test
+RULE-SET,Block / Domain,Block
+RULE-SET,ChatGPT / Domain,ChatGPT
+RULE-SET,Gemini / Domain,Gemini
+RULE-SET,Claude / Domain,Claude
+RULE-SET,Meta AI / Domain,Meta AI
+RULE-SET,Perplexity / Domain,Perplexity
+RULE-SET,GitHub / Domain,GitHub
+RULE-SET,Telegram / Domain,Telegram
+RULE-SET,Telegram / IP-CIDR,Telegram,no-resolve
+RULE-SET,Twitter / Domain,Twitter(X)
+RULE-SET,WhatsApp / Domain,WhatsApp
+RULE-SET,Facebook / Domain,Facebook
+RULE-SET,Amazon / Domain,Amazon
+RULE-SET,Apple / Domain,Apple
+RULE-SET,Apple-CN / Domain,Apple
+RULE-SET,Microsoft / Domain,Microsoft
+RULE-SET,OKX / Domain,Crypto
+RULE-SET,Bybit / Domain,Crypto
+RULE-SET,Binance / Domain,Crypto
+RULE-SET,Youtube / Domain,YouTube
+RULE-SET,TikTok / Domain,TikTok
+RULE-SET,Netflix / Domain,Netflix
+RULE-SET,Netflix / IP-CIDR,Netflix,no-resolve
+RULE-SET,Disney / Domain,Disney
+RULE-SET,HBO / Domain,HBO
+RULE-SET,Spotify / Domain,Spotify
+RULE-SET,Steam / Domain,Steam
+RULE-SET,Epic / Domain,Game
+RULE-SET,EA / Domain,Game
+RULE-SET,Blizzard / Domain,Game
+RULE-SET,UBI / Domain,Game
+RULE-SET,PlayStation / Domain,Game
+RULE-SET,Nintend / Domain,Game
+RULE-SET,Google / Domain,Google
+RULE-SET,Google / IP-CIDR,Google,no-resolve
+RULE-SET,Proxy / Domain,国外
+RULE-SET,Globe / Domain,国外
+RULE-SET,Direct / Domain,国内
+RULE-SET,China / Domain,国内
+RULE-SET,China / IP-CIDR,国内,no-resolve
+RULE-SET,Private / Domain,国内
+FINAL, 其他
+
+# 注意：Surge RULE-SET 格式是 RULE-SET,name,type,group；IP 是 IP-CIDR；no-resolve 保留
+
+[RuleSet]
+# 规则集，从 Clash rule-providers 映射（Surge 使用 [RuleSet]，url + type）
+TEST / Domain = https://gh-proxy.com/raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/Check.list, classical
+ChatGPT / Domain = https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/openai.mrs, domain
+Claude / Domain = https://gh-proxy.com/raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Claude/Claude.list, classical
+Meta AI / Domain = https://gh-proxy.com/raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/MetaAi.list, classical
+Perplexity / Domain = https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/perplexity.mrs, domain
+Copilot / Domain = https://gh-proxy.com/raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/Copilot.list, classical
+Gemini / Domain = https://gh-proxy.com/raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/Gemini.list, classical
+GitHub / Domain = https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/github.mrs, domain
+Telegram / Domain = https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/telegram.mrs, domain
+Telegram / IP = https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geoip/telegram.mrs, ipcidr
+Twitter / Domain = https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/x.mrs, domain
+WhatsApp / Domain = https://gh-proxy.com/raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Whatsapp/Whatsapp.list, classical
+Facebook / Domain = https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/facebook.mrs, domain
+Amazon / Domain = https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/amazon.mrs, domain
+Apple-CN / Domain = https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/apple-cn.mrs, domain
+Apple / Domain = https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/apple.mrs, domain
+Microsoft / Domain = https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/microsoft.mrs, domain
+OKX / Domain = https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/okx.mrs, domain
+Bybit / Domain = https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/bybit.mrs, domain
+Binance / Domain = https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/binance.mrs, domain
+TikTok / Domain = https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/tiktok.mrs, domain
+Netflix / Domain = https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/netflix.mrs, domain
+Netflix / IP = https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geoip/netflix.mrs, ipcidr
+Disney / Domain = https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/disney.mrs, domain
+HBO / Domain = https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/hbo.mrs, domain
+Spotify / Domain = https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/spotify.mrs, domain
+Steam / Domain = https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/steam.mrs, domain
+Epic / Domain = https://gh-proxy.com/raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Epic/Epic.list, classical
+EA / Domain = https://gh-proxy.com/raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/EA/EA.list, classical
+Blizzard / Domain = https://gh-proxy.com/raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Blizzard/Blizzard.list, classical
+UBI / Domain = https://gh-proxy.com/raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/UBI/UBI.list, classical
+PlayStation / Domain = https://gh-proxy.com/raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/PlayStation/PlayStation.list, classical
+Nintend / Domain = https://gh-proxy.com/raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Nintendo/Nintendo.list, classical
+Proxy / Domain = https://gh-proxy.com/raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/Proxy.list, classical
+Globe / Domain = https://gh-proxy.com/raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Global/Global.list, classical
+Direct / Domain = https://gh-proxy.com/raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/Direct.list, classical
+China / Domain = https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/cn.mrs, domain
+China / IP = https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geoip/cn.mrs, ipcidr
+Private / Domain = https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/private.mrs, domain
+Block / Domain = https://gh-proxy.com/raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/Block.list, classical
+Nvidia / Domain = https://gh-proxy.com/raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Nvidia/Nvidia.list, classical
+Crunchyroll / Domain = https://gh-proxy.com/raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/Crunchyroll.list, classical
+Reddit / Domain = https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/reddit.mrs, domain
+Youtube / Domain = https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/youtube.mrs, domain
+Google / Domain = https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/google.mrs, domain
+Google / IP = https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geoip/google.mrs, ipcidr
+
+# 注意：Surge [RuleSet] 格式是 name = url, type；type 为 domain/ipcidr/classical；interval 默认 86400；behavior 隐含；Surge 会自动更新规则集
+# 此配置基于 Surge 5+ 语法；导入后需更新订阅和规则集；UI 需要手动配置外部 UI 路径；profile store 在 Surge 通过 UI 管理
