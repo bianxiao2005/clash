@@ -113,7 +113,7 @@ proxies:
   - {name: 拒绝, type: reject}
   - name: 美国US | vpsplus1 [hy] [ChatGpt,Gemini,Netflix,TikTok]
     type: hysteria2
-    server: 64.188.4.165
+    server: 64.188.4.185
     port: 3497
     password: 88ae5f8b
     sni: www.bing.com
